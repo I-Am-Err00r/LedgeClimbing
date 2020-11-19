@@ -74,7 +74,7 @@ public class LedgeLocator : Character
             character.grabbingLedge = false;
             anim.SetBool("LedgeHanging", false);
             falling = true;
-            Invoke("NotFalling", .05f);
+            Invoke("NotFalling", .1f);
         }
     }
 
