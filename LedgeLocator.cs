@@ -1,17 +1,16 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LedgeLocator : Character
 {
     public AnimationClip clip;
-    public float hangingHorizontalOffset;
-    public float hangingVerticalOffset;
     public float climbingHorizontalOffset;
 
     private Vector2 topOfPlayer;
     private GameObject ledge;
     private bool falling;
+    private bool moved;
 
     protected virtual void FixedUpdate()
     {
@@ -51,6 +50,10 @@ public class LedgeLocator : Character
                     }
                 }
             }
+            if (ledge != null)
+            {
+                AdjustPlayerPosition();
+            }
         }
     }
 
@@ -71,10 +74,11 @@ public class LedgeLocator : Character
         if (character.grabbingLedge && Input.GetAxis("Vertical") < 0)
         {
             ledge = null;
+            moved = false;
             character.grabbingLedge = false;
             anim.SetBool("LedgeHanging", false);
             falling = true;
-            Invoke("NotFalling", .1f);
+            Invoke("NotFalling", .5f);
         }
     }
 
@@ -90,8 +94,18 @@ public class LedgeLocator : Character
             yield return null;
         }
         ledge = null;
+        moved = false;
         character.grabbingLedge = false;
         anim.SetBool("LedgeClimbing", false);
+    }
+
+    protected virtual void AdjustPlayerPosition()
+    {
+        if (!moved)
+        {
+            moved = true;
+            transform.position = new Vector2(transform.position.x + ledge.GetComponent<Ledge>().hangingHorizontalOffset, transform.position.y + ledge.GetComponent<Ledge>().hangingVerticalOffset);
+        }
     }
 
     protected virtual void NotFalling()
