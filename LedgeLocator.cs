@@ -169,13 +169,13 @@ public class LedgeLocator : Character
             if (transform.localScale.x > 0)
             {
                 //Method that runs to have the Character Lerp to top of platform based on the animationTime variable
-                StartCoroutine(ClimbingLedge(new Vector2(transform.position.x + climbingHorizontalOffset, ledge.GetComponent<Collider2D>().bounds.max.y + col.bounds.extents.y), animationTime - .3f));
+                StartCoroutine(ClimbingLedge(new Vector2(transform.position.x + climbingHorizontalOffset, ledge.GetComponent<Collider2D>().bounds.max.y + col.bounds.extents.y), animationTime));
             }
             //Makes sure the Character is facing left
             else
             {
                 //Method that runs to have the Character Lerp to top of platform based on the animationTime variable
-                StartCoroutine(ClimbingLedge(new Vector2(transform.position.x - climbingHorizontalOffset, ledge.GetComponent<Collider2D>().bounds.max.y + col.bounds.extents.y), animationTime - .3f));
+                StartCoroutine(ClimbingLedge(new Vector2(transform.position.x - climbingHorizontalOffset, ledge.GetComponent<Collider2D>().bounds.max.y + col.bounds.extents.y), animationTime));
             }
         }
         //If Character is Grabbing ledge and the down button is pressed
